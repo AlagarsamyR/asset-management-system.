@@ -1,0 +1,76 @@
+doctype html
+html
+  head
+    title= title
+    link(rel='stylesheet', href='https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css')
+    link(rel='stylesheet', href='/stylesheets/style.css')
+ 
+  body
+    header
+      nav.navbar.navbar-expand-lg.navbar-dark.bg-primary.shadow-sm
+        .container
+          a.navbar-brand(href='#')
+            span.font-weight-bold Asset Management System
+          button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarNav', aria-controls='navbarNav', aria-expanded='false', aria-label='Toggle navigation')
+            span.navbar-toggler-icon
+          #navbarNav.collapse.navbar-collapse
+            ul.navbar-nav.ml-auto
+              li.nav-item
+                a.nav-link(href='/') Home
+              li.nav-item
+                a.nav-link(href='/employees') Employees
+              li.nav-item
+                a.nav-link(href='/assets') Assets
+              li.nav-item
+                a.nav-link(href='/stock') Stock View
+              li.nav-item
+                a.nav-link(href='/asset-issuance') Asset Issuance
+              li.nav-item
+                a.nav-link(href='/asset-history') Asset History
+              li.nav-item
+                a.nav-link(href='/login/logout') Logout
+
+    main.container.my-5
+      section#welcome.jumbotron.bg-light.shadow-sm.text-center
+        h1.display-4.font-weight-bold.mb-4 Welcome to the Asset Management System!
+        p.lead.text-muted= message
+
+      section#features
+        h2.mb-4.font-weight-bold.text-center Key Features
+        .row
+          .col-md-6.mb-4
+            .card.shadow-sm
+              .card-body
+                h4.card-title.font-weight-bold Employee Management
+                p.card-text Add, edit, and view information about employees.
+          .col-md-6.mb-4
+            .card.shadow-sm
+              .card-body
+                h4.card-title.font-weight-bold Asset Management
+                p.card-text Manage company assets, including filtering and searching by type, make, or model.
+          .col-md-6.mb-4
+            .card.shadow-sm
+              .card-body
+                h4.card-title.font-weight-bold Stock View
+                p.card-text Overview of all assets currently in stock, including location and total value.
+          .col-md-6.mb-4
+            .card.shadow-sm
+              .card-body
+                h4.card-title.font-weight-bold Asset Issuance and Return
+                p.card-text Track assets issued to employees and record returns.
+          
+          .col-md-6.mb-4
+            .card.shadow-sm
+              .card-body
+                h4.card-title.font-weight-bold Asset History
+                p.card-text View complete histories of assets from purchase to disposal.
+
+      section#about.jumbotron.bg-light.shadow-sm.text-center
+        h2.mb-4.font-weight-bold About Us
+        p.lead.text-muted
+          | This Asset Management System is designed to streamline asset tracking processes 
+          | within our organization. If you have any questions or feedback, please contact us.
+
+    footer.bg-primary.text-light.py-3.shadow-sm
+      .container.text-center
+        p.mb-0.small © 2024 Your Company Name

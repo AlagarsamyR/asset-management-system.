@@ -1,0 +1,31 @@
+extends layout
+
+block content
+  .container-fluid
+    .row.justify-content-center.align-items-center.min-vh-100
+      .col-md-4
+        .card.shadow-sm
+          .card-body.p-5
+            .text-center.mb-4
+              h1(class="mb-4") Login
+              p(class="text-muted") Sign in to your account
+
+            form(action="/login", method="POST")
+              .form-group.mb-3
+                label(for="email" class="form-label sr-only") Email address
+                input#email.form-control(type="email", name="email", placeholder="Enter your email", required)
+              
+              .form-group.mb-4
+                label(for="password" class="form-label sr-only") Password
+                input#password.form-control(type="password", name="password", placeholder="Enter your password", required)
+
+              button.btn.btn-primary.btn-block(type="submit") Login
+
+            //- .mt-3.text-center
+            //-   small
+            //-     | Don't have an account? 
+            //-     a(href="#") Register here
+
+            //- .mt-4.text-center
+            //-   small.text-muted
+            //-     a(href="#") Forgot password?

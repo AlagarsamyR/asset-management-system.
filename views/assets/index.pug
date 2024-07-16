@@ -1,0 +1,68 @@
+extends layout
+
+block content
+  .container-fluid.mt-4
+    .row
+        .card
+          .card-header
+            .row
+              .col-md-6
+                h2 All Assets
+              .col-md-6.text-right
+                .form-group
+                  select#typeFilter.form-control(name='type')
+                      option(value='') Select Asset Type
+                      option(value='Laptop') Laptop
+                      option(value='Cell Phone') Cell Phone
+                      option(value='Modem') Modem
+                      option(value='Tool') Tool
+
+          .card-body
+            a.btn.btn-primary.mb-3(href='/assets/add') Add New Asset
+
+            table#assetTable.table.table-striped.table-bordered
+              thead
+                tr
+                  th(scope='col') Serial Number
+                  th(scope='col') Asset ID
+                  th(scope='col') Type
+                  th(scope='col') Make
+                  th(scope='col') Model
+                  th(scope='col') Quantity
+                  th(scope='col') Price
+                  th(scope='col') Branch
+                  th(scope='col') Description
+                  th(scope='col') Actions
+              tbody
+                each asset in assets
+                  tr
+                    td= asset.serialNumber
+                    td= asset.assetId
+                    td= asset.type
+                    td= asset.make
+                    td= asset.model
+                    td= asset.quantity
+                    td= asset.price
+                    td= asset.branch
+                    td= asset.description
+                    td.text-right
+                      .btn-group
+                        a.btn.btn-sm.btn-info(href=`/assets/edit/${asset.id}`) Edit
+                        form(action=`/assets/delete/${asset.id}`, method='POST', onsubmit='return confirm("Are you sure you want to delete this asset?");')
+                          button.btn.btn-sm.btn-danger.ml-2(type='submit') Delete
+  script.
+    $(document).ready(function() {
+      // Initialize DataTable
+      var table = $('#assetTable').DataTable({
+        "paging": true,
+        "searching": true,
+        "ordering": true,
+        "info": true
+      });
+
+      // Handle type filter change event
+      $('#typeFilter').on('change', function() {
+        var type = $(this).val().toLowerCase();
+        table.columns(2).search(type).draw(); // Adjust column index (2) if needed
+      });
+    });

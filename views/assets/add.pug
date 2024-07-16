@@ -1,0 +1,69 @@
+extends layout
+
+block content
+  .container-fluid.mt-4
+    .row
+      .col-md-8.offset-md-2
+        .card
+          .card-header
+            h2 Add New Asset
+          .card-body
+            if alert
+              .alert.alert-danger(role='alert')
+                = alert
+            form(action='/assets/add', method='POST')
+              .row 
+                .col-md-6
+                  .form-group
+                    label(for='serialNumber') Serial Number
+                    input#serialNumber.form-control(type='text', name='serialNumber', required)
+                .col-md-6
+                  .form-group
+                    label(for='assetId') Asset ID
+                    input#assetId.form-control(type='text', name='assetId', required)
+              .row 
+                .col-md-6
+                  .form-group
+                    label(for='type') Type
+                    select#type.form-control(name='type', required)
+                      option(value='') Select Asset Type
+                      option(value='Laptop') Laptop
+                      option(value='Cell Phone') Cell Phone
+                      option(value='Modem') Modem
+                      option(value='Tool') Tool
+                      // Add more options as needed
+                .col-md-6
+                  .form-group
+                    label(for='make') Make
+                    input#make.form-control(type='text', name='make', required)
+              .row 
+                .col-md-6
+                  .form-group
+                    label(for='model') Model
+                    input#model.form-control(type='text', name='model', required)
+                .col-md-6
+                  .form-group
+                    label(for="quantity") Quantity
+                    input#quantity.form-control(type="number", name="quantity", required)
+              .row 
+                .col-md-6
+                  .form-group 
+                    label(for="price") Price
+                    input#price.form-control(type="number", name="price", required)
+                .col-md-6
+                  .form-group
+                    label(for='branch') Branch
+                    select#branch.form-control(name='branch', required)
+                      option(value='') Select Branch
+                      option(value='Mumbai') Mumbai
+                      option(value='Delhi') Delhi
+                      option(value='Bangalore') Bangalore
+                      option(value='Chennai') Chennai
+              .row
+                .col-md-6
+                  .form-group
+                    label(for='description') Description
+                    textarea#description.form-control(name='description')
+              .row
+                .col-md-6
+                  button.btn.btn-primary(type='submit') Add Asset

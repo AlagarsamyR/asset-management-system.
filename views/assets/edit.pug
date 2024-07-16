@@ -1,0 +1,67 @@
+extends layout
+
+block content
+  .container-fluid.mt-4
+    .row
+      .col-md-8.offset-md-2
+        .card
+          .card-header
+             h2 Edit Asset
+          .card-body
+            if alert
+              .alert.alert-danger(role='alert')
+                = alert
+            form(action=`/assets/edit/${asset._id}`, method='POST')
+              .row 
+                .col-md-6
+                  .form-group
+                    label(for='serialNumber') Serial Number
+                    input#serialNumber.form-control(type='text', name='serialNumber', value=asset.serialNumber, required)
+                .col-md-6
+                  .form-group
+                    label(for='assetId') Asset ID
+                    input#assetId.form-control(type='text', name='assetId', value=asset.assetId, required)
+              .row 
+                .col-md-6
+                  .form-group
+                    label(for='type') Type
+                    select#type.form-control(name='type', required)
+                      option(value='Laptop', selected=asset.type === 'Laptop') Laptop
+                      option(value='Cell Phone', selected=asset.type === 'Cell Phone') Cell Phone
+                      option(value='Modem', selected=asset.type === 'Modem') Modem
+                      option(value='Tool', selected=asset.type === 'Tool') Tool
+                .col-md-6
+                  .form-group
+                    label(for='make') Make
+                    input#make.form-control(type='text', name='make', value=asset.make, required)
+              .row 
+                .col-md-6
+                  .form-group
+                    label(for='model') Model
+                    input#model.form-control(type='text', name='model', value=asset.model, required)
+                .col-md-6          
+                  .form-group
+                    label(for="quantity") Quantity
+                    input#quantity.form-control(type="number", name="quantity", value=asset.quantity, required)
+              .row 
+                .col-md-6  
+                  .form-group
+                    label(for="price") Price
+                    input#price.form-control(type="number", name="price", value=asset.price, required)
+                .col-md-6
+                  .form-group
+                    label(for="branch") Branch
+                    select#branch.form-control(name="branch" required)
+                      option(value='') Select Branch
+                      option(value='Chennai', selected=asset && asset.branch=="Chennai") Chennai
+                      option(value='Mumbai', selected=asset && asset.branch=="Mumbai") Mumbai
+                      option(value='Delhi', selected=asset && asset.branch=="Delhi") Delhi
+                      option(value='Bangalore', selected=asset && asset.branch=="Bangalore") Bangalore
+              .row 
+                .col-md-6
+                  .form-group
+                    label(for='description') Description
+                    textarea#description.form-control(name='description')= asset.description
+              .row
+                .col-md-6
+                  button.btn.btn-primary(type='submit') Save Changes

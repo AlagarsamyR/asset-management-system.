@@ -1,0 +1,48 @@
+extends layout
+
+block content
+  .container-fluid.mt-4
+    .row
+      .col-md-8.offset-md-2
+        .card
+          .card-header
+            h2 Issue Asset
+          .card-body
+            form(action='/asset-issuance/issue', method='POST')
+              .row
+                .col-md-6
+                  .form-group
+                    label(for='assetId') Select Asset
+                    select#asset.form-control(name='assetId' required)
+                      option(value='') Select Asset
+                      each asset in assets
+                        option(value=asset.id)= `${asset.assetId} (${asset.remainingQuantity} remaining)`
+                .col-md-6
+                  .form-group
+                    label(for='employee') Select Employee
+                    select#employee.form-control(name='employeeId' required)
+                      option(value='') Select Employee
+                      each employee in employees
+                        option(value=employee.id)= `${employee.firstName} ${employee.lastName}`
+              .row
+                .col-md-6
+                  .form-group
+                    label(for='quantity') Quantity
+                    input#quantity.form-control(type='number', name='quantity', min='1', required)
+                .col-md-6
+                  .form-group
+                    label(for='branch') Branch
+                    select#branch.form-control(name='branch' required)
+                      option(value='') Select Branch
+                      option(value='Chennai') Chennai
+                      option(value='Mumbai') Mumbai
+                      option(value='Delhi') Delhi
+                      option(value='Bangalore') Bangalore
+              .row
+                .col-md-6
+                  .form-group
+                    label(for='notes') Notes
+                    textarea#notes.form-control(name='notes' rows='3')
+              .row
+                .col-md-6
+                  button.btn.btn-primary(type='submit') Issue Asset

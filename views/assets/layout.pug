@@ -1,0 +1,48 @@
+doctype html
+html(lang='en')
+  head
+    meta(charset='UTF-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    title Asset Management System
+    link(rel='stylesheet', href='https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css', integrity='sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z', crossorigin='anonymous')
+    link(rel='stylesheet', href='https://cdn.datatables.net/1.11.4/css/jquery.dataTables.css')
+    link(rel='stylesheet', href='/stylesheets/style.css')
+
+  body
+    nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
+      a.navbar-brand(href='#') Asset Management System
+      button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarNav', aria-controls='navbarNav', aria-expanded='false', aria-label='Toggle navigation')
+        span.navbar-toggler-icon
+      #navbarNav.navbar-collapse.collapse
+        ul.navbar-nav.ml-auto
+          li.nav-item
+            a.nav-link(href='/') Home
+          li.nav-item
+            a.nav-link(href='/assets') All Assets
+          li.nav-item
+            a.nav-link(href='/assets/add') Add New Asset
+
+    .container-fluid
+      block content
+
+    script(src='https://code.jquery.com/jquery-3.5.1.slim.min.js', integrity='sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj', crossorigin='anonymous')
+    script(src='https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js', integrity='sha384-J12Z3T4b3K7fPFb6ulEYlqf0P4/kJWjXkMfcoC+MDl0/AwsoS1XaF1s95/DG/Jc+', crossorigin='anonymous')
+    script(src='https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js', integrity='sha384-4N/E5OsSoAq2H/p3B8F/uSA7hEzFy+Y8BsGsbzo3FZBxyYYDpG4hBwEUL7Onviq6', crossorigin='anonymous')
+    script(src='https://cdn.datatables.net/1.11.4/js/jquery.dataTables.js')
+
+    script.
+      $(document).ready(function() {
+        // Initialize DataTable
+        var table = $('#assetTable').DataTable({
+          "paging": true,
+          "searching": true,
+          "ordering": true,
+          "info": true
+        });
+
+        // Handle type filter change event
+        $('#typeFilter').on('change', function() {
+          var type = $(this).val().toLowerCase();
+          table.columns(2).search(type).draw(); // Adjust column index (2) if needed
+        });
+      });

@@ -1,1 +1,5 @@
-# asset-management-system.
+Email : admin@gmail.com 
+Pass  : admin
+
+
+

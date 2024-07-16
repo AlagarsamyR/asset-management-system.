@@ -1,0 +1,33 @@
+extends layout
+
+block content
+  .container
+    h1 Stock View
+
+    // Stock overview by branch
+    if stock.length > 0
+      table.table.table-striped
+        thead
+          tr
+            th Branch
+            th Total Assets
+            th Total Value (INR)
+        tbody
+          each item in stock
+            tr
+              td
+                if item.branch === 'all'
+                  | All
+                else
+                  a(href=`/stock/branch?branch=${item.branch}`)= item.branch
+              td= item.getDataValue('totalAssets')
+              td= item.getDataValue('totalValue').toLocaleString('en-IN', { style: 'currency', currency: 'INR' })
+    else
+      p No assets available.
+
+    // Total assets and total value footer
+    if stock.length > 0
+      .footer
+        hr
+        p Total Assets in Stock: #{totalAssetsAll}
+        p Total Value in Stock: #{totalValueAll.toLocaleString('en-IN', { style: 'currency', currency: 'INR' })}

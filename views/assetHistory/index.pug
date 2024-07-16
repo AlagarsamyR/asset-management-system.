@@ -1,0 +1,59 @@
+extends layout
+
+block content
+  .container-fluid.mt-4
+    .row
+      .card
+        .card-header
+          h2 Asset Events
+        .card-body
+          table#assetEventsTable.table.table-striped.table-bordered
+            thead
+              tr
+                th(scope='col') Asset ID
+                th(scope='col') Type
+                th(scope='col') Make
+                th(scope='col') Model
+                th(scope='col') Description
+                th(scope='col') Quantity
+                th(scope='col') Price
+                th(scope='col') Branch
+                th(scope='col') Issued Date
+                th(scope='col') Employee Name
+                th(scope='col') Event Type
+                th(scope='col') Location
+                th(scope='col') Notes
+                th(scope='col') Reason for Return
+            tbody
+              each event in assetEvents
+                tr
+                  - var serialNumber = event && event.asset ? event.asset.serialNumber : ''
+                  - var type = event && event.asset ? event.asset.type : ''
+                  - var make = event && event.asset ? event.asset.make : ''
+                  - var model = event && event.asset ? event.asset.model : ''
+                  - var description = event && event.asset ? event.asset.description : ''
+                  - var quantity = event ? event.quantity : ''
+                  - var price = event && event.asset ? event.asset.price : ''
+                  - var branch = event && event.asset ? event.asset.branch : ''
+                  - var eventDate = event && event.eventDate ? event.eventDate.toLocaleDateString() : ''
+                  - var firstName = event && event.employee ? event.employee.firstName : ''
+                  - var lastName = event && event.employee ? event.employee.lastName : ''
+                  - var eventType = event ? event.eventType : ''
+                  - var location = event && event.asset ? event.asset.branch : ''
+                  - var notes = event ? event.notes : ''
+                  - var reasonForReturn = event ? event.reasonForReturn : ''
+                  
+                  td= serialNumber
+                  td= type
+                  td= make
+                  td= model
+                  td= description
+                  td= quantity
+                  td= price
+                  td= branch
+                  td= eventDate
+                  td= firstName + ' ' + lastName
+                  td= eventType
+                  td= location
+                  td= notes
+                  td= reasonForReturn

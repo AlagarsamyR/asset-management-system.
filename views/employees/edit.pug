@@ -1,0 +1,147 @@
+extends layout
+
+block content
+  .container.mt-4
+    .row
+      .col-md-8.offset-md-2
+        .card
+          .card-header
+            if employee
+              h2 Edit Employee
+            else
+              h2 Add New Employee
+          .card-body
+            form(action= actionUrl, method='POST')
+              .row
+                .col-md-6
+                  .form-group
+                    label(for='firstName') First Name
+                    input#firstName.form-control(type='text', name='firstName', value=employee ? employee.firstName : '', required)
+                .col-md-6
+                  .form-group
+                    label(for='lastName') Last Name
+                    input#lastName.form-control(type='text', name='lastName', value=employee ? employee.lastName : '', required)
+              .row
+                .col-md-6
+                  .form-group
+                    label(for='email') Email
+                    input#email.form-control(type='email', name='email', value=employee ? employee.email : '', required)
+                .col-md-6
+                  .form-group
+                    label(for='newpassword') New Password
+                    input#password.form-control(type='password', name='newpassword' )
+                
+              .row
+                .col-md-6
+                  .form-group
+                    label(for="department") Department
+                    select#department.form-control(name="department" required)
+                      option(value="") Select Department
+                      option(value="Software Development" ,selected=employee && employee.department=="Software Development") Software Development
+                      option(value="IT Operations") IT Operations
+                      option(value="IT Helpdesk") IT Helpdesk
+                      option(value="IT Security") IT Security
+                      option(value="IT Asset Management" ,selected=employee && employee.department=="IT Asset Management") IT Asset Management
+                .col-md-6
+                  .form-group
+                    label(for="position") Position
+                    select#position.form-control(name="position" required)
+                      option(value="") Select Position
+                      if employee && employee.department === 'Software Development'
+                        option(value="Full Stack Developer", selected=employee.position === 'Full Stack Developer') Full Stack Developer
+                        option(value="Back-End Developer", selected=employee.position === 'Back-End Developer') Back-End Developer
+                        option(value="QA Tester", selected=employee.position === 'QA Tester') QA Tester
+                      else if employee && employee.department === 'IT Operations'
+                        option(value="Network Administrator", selected=employee.position === 'Network Administrator') Network Administrator
+                        option(value="Cloud Engineer", selected=employee.position === 'Cloud Engineer') Cloud Engineer
+                        option(value="System Administrator", selected=employee.position === 'System Administrator') System Administrator
+                      else if employee && employee.department === 'IT Helpdesk'
+                        option(value="Support Technician", selected=employee.position === 'Support Technician') Support Technician
+                        option(value="Service Desk Analyst", selected=employee.position === 'Service Desk Analyst') Service Desk Analyst
+                      else if employee && employee.department === 'IT Security'
+                        option(value="Security Analyst", selected=employee.position === 'Security Analyst') Security Analyst
+                        option(value="Security Engineer", selected=employee.position === 'Security Engineer') Security Engineer
+                      else if employee && employee.department === 'IT Asset Management'
+                        option(value="Asset Manager", selected=employee.position === 'Asset Manager') Asset Manager
+                      else
+                        // Handle the default case if needed
+                  
+              .row
+                .col-md-6
+                  .form-group
+                    label(for='salary') Salary
+                    input#salary.form-control(type='number', name='salary', min='0', step='100', value=employee ? employee.salary : '', required)
+                .col-md-6
+                  .form-group
+                    label(for='isActive') Active Status
+                    select#isActive.form-control(name='isActive', required)
+                      option(value='') Select Status
+                      option(value='true', selected=employee && employee.isActive) Active
+                      option(value='false', selected=employee && !employee.isActive) Inactive
+              .row 
+                .col-md-6
+                  .form-group
+                    label(for="branch") Branch
+                    select#branch.form-control(name="branch" required)
+                      option(value='') Select Branch
+                      option(value='Chennai', selected=employee && employee.branch=="Chennai") Chennai
+                      option(value='Mumbai', selected=employee && employee.branch=="Mumbai") Mumbai
+                      option(value='Delhi', selected=employee && employee.branch=="Delhi") Delhi
+                      option(value='Bangalore', selected=employee && employee.branch=="Bangalore") Bangalore
+                  
+                .col-md-6
+                  .form-group
+                    label(for='isAssetIssuer') Asset Manager
+                    select#isAssetIssuer.form-control(name='isAssetIssuer', required)
+                      option(value=" ") select Asset Manager 
+                      option(value='true', selected=employee.isAssetIssuer) Yes
+                      option(value='false', selected=!employee.isAssetIssuer) No
+              .row 
+                .col-md-6
+                  .form-group
+                    label(for='dateJoined') Date Joined
+                    input#dateJoined.form-control(type='date', name='dateJoined', value=employee ? employee.dateJoined.toISOString().substr(0, 10) : '', required)
+                
+                .col-md-6 
+                  .form-group
+                    label(for='dateTerminated') Date Terminated
+                    input#dateTerminated.form-control(type='date', name='dateTerminated', value=employee && employee.dateTerminated ? employee.dateTerminated.toISOString().substr(0, 10) : '')
+
+              .row
+                .col-12
+                  button.btn.btn-primary(type='submit') #{employee ? 'Update Employee' : 'Add Employee'}
+
+              script.
+                const departmentSelect = document.getElementById('department');
+                const positionSelect = document.getElementById('position');
+
+                departmentSelect.addEventListener('change', () => {
+                  const department = departmentSelect.value;
+
+                  // Clear current options
+                  positionSelect.innerHTML = '';
+
+                  if (department === 'Software Development') {
+                    positionSelect.add(new Option('Full Stack Developer', 'Full Stack Developer'));
+                    positionSelect.add(new Option('Back-End Developer', 'Back-End Developer'));
+                    positionSelect.add(new Option('QA Tester', 'QA Tester'));
+                  } else if (department === 'IT Operations') {
+                    positionSelect.add(new Option('Network Administrator', 'Network Administrator'));
+                    positionSelect.add(new Option('Cloud Engineer', 'Cloud Engineer'));
+                    positionSelect.add(new Option('System Administrator', 'System Administrator'));
+                  } else if (department === 'IT Helpdesk') {
+                    positionSelect.add(new Option('Support Technician', 'Support Technician'));
+                    positionSelect.add(new Option('Service Desk Analyst', 'Service Desk Analyst'));
+                  } else if (department === 'IT Security') {
+                    positionSelect.add(new Option('Security Analyst', 'Security Analyst'));
+                    positionSelect.add(new Option('Security Engineer', 'Security Engineer'));
+                  } else if (department === 'IT Asset Management') {
+                    positionSelect.add(new Option('Asset Manager', 'Asset Manager'));
+                  }
+                });
+
+                // Trigger change event initially if department is pre-selected
+                if (employee) {
+                  departmentSelect.value = employee.department;
+                  departmentSelect.dispatchEvent(new Event('change')); // Trigger position update
+                }

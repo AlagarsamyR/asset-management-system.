@@ -1,0 +1,57 @@
+extends layout
+
+block content
+  .container-fluid.mt-4
+    .row
+     
+        .card
+          .card-header
+            h2 All Employees
+          .card-body
+            a.btn.btn-primary.mb-3(href='/employees/add') Add New Employee
+
+            form(action='/employees', method='GET' class='mb-3')
+              .form-row
+                .form-group.col-md-6
+                  input#search.form-control(type='text', name='search', placeholder='Search by Name')
+                .form-group.col-md-3
+                  select#filterIsActive.form-control(name='isActive')
+                    option(value='') All
+                    option(value='true') Active
+                    option(value='false') Inactive
+                .form-group.col-md-3
+                  button.btn.btn-primary(type='submit') Search
+
+            table#employeesTable.table.table-striped.table-bordered
+              thead
+                tr
+                  th(scope='col') First Name
+                  th(scope='col') Last Name
+                  th(scope='col') Email
+                  th(scope='col') Department
+                  th(scope='col') Position
+                  th(scope='col') Salary
+                  th(scope='col') Active
+                  th(scope='col') Branch
+                  th(scope='col') Date Joined
+                  th(scope='col') Asset Manager
+                  th(scope='col') Actions
+              tbody
+                each employee in employees
+                  tr
+                    td= employee.firstName
+                    td= employee.lastName
+                    td= employee.email
+                    td= employee.department
+                    td= employee.position
+                    td= employee.salary
+                    td= employee.isActive ? 'Active' : 'Inactive'
+                    td= employee.branch
+                    td= employee.dateJoined.toLocaleDateString()
+                    td= employee.isAssetIssuer ? 'Yes' : 'No'
+                    td.text-right
+                      .btn-group
+                        a.btn.btn-sm.btn-info(href=`/employees/edit/${employee.id}`) Edit
+                        form(action=`/employees/delete/${employee.id}`, method='POST', onsubmit='return confirm("Are you sure you want to delete this employee?");')
+                          button.btn.btn-sm.btn-danger.ml-2(type='submit') Delete
+

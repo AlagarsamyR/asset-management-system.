@@ -1,0 +1,33 @@
+extends layout
+
+block content
+  .container-fluid.mt-4
+  .row
+      .card
+        .card-header
+          .row
+            .col-md-6
+              h2 Issued Assets
+        .card-body
+          a.btn.btn-primary.mb-2(href='/asset-issuance/issue') Issue New Asset
+          table#issuedAssetsTable.table.table-striped.table-bordered
+            thead
+              tr
+                th(scope='col') Asset
+                th(scope='col') Employee
+                th(scope='col') Issued Date
+                th(scope='col') Status
+                th(scope='col') Actions
+            tbody
+              each issuedAsset in issuedAssets
+                tr
+                  td= `${issuedAsset.Asset.serialNumber} - ${issuedAsset.Asset.type} (${issuedAsset.Asset.make} ${issuedAsset.Asset.model})`
+                  td= `${issuedAsset.Employee.firstName} ${issuedAsset.Employee.lastName}`
+                  td= issuedAsset.issuedDate.toDateString()
+                  td= issuedAsset.status
+                  td.text-right
+                    if issuedAsset.status === 'issued'
+                      .btn-group
+                        a.btn.btn-warning.btn-sm(href=`/asset-issuance/return/${issuedAsset.id}`) Return
+                        a.btn.btn-danger.btn-sm.ml-2(href=`/asset-issuance/scrap/${issuedAsset.id}`) Scrap
+

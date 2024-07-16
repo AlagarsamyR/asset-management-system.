@@ -1,0 +1,40 @@
+extends layout
+
+block content
+  .container
+    h1 Stock View - #{branch}
+
+   
+
+    // Assets table
+    if assets.length > 0
+      table.table.table-striped
+        thead
+          tr
+            th Asset ID
+            th Serial Number
+            th Type
+            th Make
+            th Model
+            th Quantity 
+            th Assigned Quantity
+            th Description
+            th Price (INR)
+        tbody
+          each asset in assets
+            tr
+              td #{asset.assetId}
+              td #{asset.serialNumber}
+              td #{asset.type}
+              td #{asset.make}
+              td #{asset.model}
+              td #{asset.quantity}
+              td #{asset.assignedquantity}
+              td #{asset.description}
+              td #{asset.price.toLocaleString('en-IN', { style: 'currency', currency: 'INR' })}
+     
+   
+    else
+      p No assets available in #{branch}.
+    p Total Assets in #{branch}: #{assets.length}
+    p Total Value in #{branch}: #{totalValue.toLocaleString('en-IN', { style: 'currency', currency: 'INR' })}

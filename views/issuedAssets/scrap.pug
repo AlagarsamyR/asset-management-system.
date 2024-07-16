@@ -1,0 +1,37 @@
+extends layout
+
+block content
+ .container-fluid.mt-4
+    .row
+      .col-md-8.offset-md-2
+        .card
+          .card-header
+           h2 Scrap Asset
+          .card-body
+            form(action=`/asset-issuance/scrap/${issuedAsset.id}`, method='POST')
+              .row
+                .col-md-6
+                  .form-group
+                    label(for='asset') Asset
+                    input#asset.form-control(type='text', value=`${issuedAsset.Asset.serialNumber} - ${issuedAsset.Asset.type} (${issuedAsset.Asset.make} ${issuedAsset.Asset.model})`, readonly)
+                .col-md-6 
+                  .form-group
+                    label(for='employee') Employee
+                    input#employee.form-control(type='text', value=`${issuedAsset.Employee.firstName} ${issuedAsset.Employee.lastName}`, readonly)
+              .row
+                .col-md-6  
+                  .form-group
+                    label(for='returnedDate') Returned Date
+                    input#returnedDate.form-control(type='date', name='returnedDate', required)
+                .col-md-6  
+                  .form-group
+                    label(for='reasonForReturn') Reason for Scrap
+                    textarea#reasonForReturn.form-control(name='reasonForReturn', rows='3', required)
+              .row
+                .col-md-6
+                  .form-group
+                    label(for='notes') Notes
+                    textarea#notes.form-control(name='notes', rows='3')
+              .row
+                .col-md-6
+                  button.btn.btn-primary(type='submit') Scrap Asset
